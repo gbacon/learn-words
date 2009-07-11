@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+                layout="vertical"
+                width="400" height="250"
+                backgroundColor="white"
+                applicationComplete="init()">
+
+  <mx:Script>
+    <![CDATA[
+
+      import mx.core.SoundAsset;
+      import flash.media.*;
+
+      [Embed(source="words/a.mp3")][Bindable]
+      private var ASong:Class;
+      [Embed(source="words/all.mp3")][Bindable]
+      private var AllSong:Class;
+      [Embed(source="words/I.mp3")][Bindable]
+      private var ISong:Class;
+      [Embed(source="words/an.mp3")][Bindable]
+      private var AnSong:Class;
+      [Embed(source="words/and.mp3")][Bindable]
+      private var AndSong:Class;
+      [Embed(source="words/are.mp3")][Bindable]
+      private var AreSong:Class;
+      [Embed(source="words/as.mp3")][Bindable]
+      private var AsSong:Class;
+      [Embed(source="words/at.mp3")][Bindable]
+      private var AtSong:Class;
+      [Embed(source="words/be.mp3")][Bindable]
+      private var BeSong:Class;
+      [Embed(source="words/but.mp3")][Bindable]
+      private var ButSong:Class;
+      [Embed(source="words/by.mp3")][Bindable]
+      private var BySong:Class;
+      [Embed(source="words/can.mp3")][Bindable]
+      private var CanSong:Class;
+      [Embed(source="words/do.mp3")][Bindable]
+      private var DoSong:Class;
+      [Embed(source="words/each.mp3")][Bindable]
+      private var EachSong:Class;
+      [Embed(source="words/for.mp3")][Bindable]
+      private var ForSong:Class;
+      [Embed(source="words/from.mp3")][Bindable]
+      private var FromSong:Class;
+      [Embed(source="words/had.mp3")][Bindable]
+      private var HadSong:Class;
+      [Embed(source="words/have.mp3")][Bindable]
+      private var HaveSong:Class;
+      [Embed(source="words/he.mp3")][Bindable]
+      private var HeSong:Class;
+      [Embed(source="words/his.mp3")][Bindable]
+      private var HisSong:Class;
+      [Embed(source="words/how.mp3")][Bindable]
+      private var HowSong:Class;
+      [Embed(source="words/if.mp3")][Bindable]
+      private var IfSong:Class;
+      [Embed(source="words/in.mp3")][Bindable]
+      private var InSong:Class;
+      [Embed(source="words/is.mp3")][Bindable]
+      private var IsSong:Class;
+      [Embed(source="words/it.mp3")][Bindable]
+      private var ItSong:Class;
+      [Embed(source="words/not.mp3")][Bindable]
+      private var NotSong:Class;
+      [Embed(source="words/of.mp3")][Bindable]
+      private var OfSong:Class;
+      [Embed(source="words/on.mp3")][Bindable]
+      private var OnSong:Class;
+      [Embed(source="words/one.mp3")][Bindable]
+      private var OneSong:Class;
+      [Embed(source="words/or.mp3")][Bindable]
+      private var OrSong:Class;
+      [Embed(source="words/said.mp3")][Bindable]
+      private var SaidSong:Class;
+      [Embed(source="words/she.mp3")][Bindable]
+      private var SheSong:Class;
+      [Embed(source="words/that.mp3")][Bindable]
+      private var ThatSong:Class;
+      [Embed(source="words/the.mp3")][Bindable]
+      private var TheSong:Class;
+      [Embed(source="words/their.mp3")][Bindable]
+      private var TheirSong:Class;
+      [Embed(source="words/there.mp3")][Bindable]
+      private var ThereSong:Class;
+      [Embed(source="words/they.mp3")][Bindable]
+      private var TheySong:Class;
+      [Embed(source="words/this.mp3")][Bindable]
+      private var ThisSong:Class;
+      [Embed(source="words/to.mp3")][Bindable]
+      private var ToSong:Class;
+      [Embed(source="words/use.mp3")][Bindable]
+      private var UseSong:Class;
+      [Embed(source="words/was.mp3")][Bindable]
+      private var WasSong:Class;
+      [Embed(source="words/we.mp3")][Bindable]
+      private var WeSong:Class;
+      [Embed(source="words/were.mp3")][Bindable]
+      private var WereSong:Class;
+      [Embed(source="words/what.mp3")][Bindable]
+      private var WhatSong:Class;
+      [Embed(source="words/when.mp3")][Bindable]
+      private var WhenSong:Class;
+      [Embed(source="words/which.mp3")][Bindable]
+      private var WhichSong:Class;
+      [Embed(source="words/with.mp3")][Bindable]
+      private var WithSong:Class;
+      [Embed(source="words/words.mp3")][Bindable]
+      private var WordSong:Class;
+      [Embed(source="words/you.mp3")][Bindable]
+      private var YouSong:Class;
+      [Embed(source="words/your.mp3")][Bindable]
+      private var YourSong:Class;
+
+      private var wordAudio:Object = {
+          'I': new ISong()  as SoundAsset
+        , 'a': new ASong() as SoundAsset
+        , 'all': new AllSong() as SoundAsset
+        , 'an': new AnSong() as SoundAsset
+        , 'and': new AndSong() as SoundAsset
+        , 'are': new AreSong() as SoundAsset
+        , 'as': new AsSong() as SoundAsset
+        , 'at': new AtSong() as SoundAsset
+        , 'be': new BeSong() as SoundAsset
+        , 'but': new ButSong() as SoundAsset
+        , 'by': new BySong() as SoundAsset
+        , 'can': new CanSong() as SoundAsset
+        , 'do': new DoSong() as SoundAsset
+        , 'each': new EachSong() as SoundAsset
+        , 'for': new ForSong() as SoundAsset
+        , 'from': new FromSong() as SoundAsset
+        , 'had': new HadSong() as SoundAsset
+        , 'have': new HaveSong() as SoundAsset
+        , 'he': new HeSong() as SoundAsset
+        , 'his': new HisSong() as SoundAsset
+        , 'how': new HowSong() as SoundAsset
+        , 'if': new IfSong() as SoundAsset
+        , 'in': new InSong() as SoundAsset
+        , 'is': new IsSong() as SoundAsset
+        , 'it': new ItSong() as SoundAsset
+        , 'not': new NotSong() as SoundAsset
+        , 'of': new OfSong() as SoundAsset
+        , 'on': new OnSong() as SoundAsset
+        , 'one': new OneSong() as SoundAsset
+        , 'or': new OrSong() as SoundAsset
+        , 'said': new SaidSong() as SoundAsset
+        , 'she': new SheSong() as SoundAsset
+        , 'that': new ThatSong() as SoundAsset
+        , 'the': new TheSong() as SoundAsset
+        , 'their': new TheirSong() as SoundAsset
+        , 'there': new ThereSong() as SoundAsset
+        , 'they': new TheySong() as SoundAsset
+        , 'this': new ThisSong() as SoundAsset
+        , 'to': new ToSong() as SoundAsset
+        , 'use': new UseSong() as SoundAsset
+        , 'was': new WasSong() as SoundAsset
+        , 'we': new WeSong() as SoundAsset
+        , 'were': new WereSong() as SoundAsset
+        , 'what': new WhatSong() as SoundAsset
+        , 'when': new WhenSong() as SoundAsset
+        , 'which': new WhichSong() as SoundAsset
+        , 'with': new WithSong() as SoundAsset
+        , 'words': new WordSong() as SoundAsset
+        , 'you': new YouSong() as SoundAsset
+        , 'your': new YourSong() as SoundAsset
+      };
+
+      private var wordOrder:Array = [];
+
+      private var channel:SoundChannel;
+
+      private function init():void {
+        stage.addEventListener(KeyboardEvent.KEY_DOWN, handleKeyDown);
+        focusManager.setFocus(saybutton);
+        next();
+      }
+
+      public function handleKeyDown(event:KeyboardEvent):void {
+        trace("Key was pressed: " + event.keyCode);
+
+        switch (event.keyCode) {
+          case 13:  // enter
+          case 39:  // right-arrow
+          case 78:  // N
+            next();
+            break;
+
+          case 83:  // S
+            say();
+            break;
+
+          default:
+            break;
+        }
+      }
+
+      private function next():void {
+        if (wordOrder.length == 0) {
+          for (var w:String in wordAudio) {
+            wordOrder.push(w);
+          }
+
+          var n:int = wordOrder.length;
+          while (n > 1) {
+            n--;
+            var k:int = Math.floor(Math.random() * (n+1));
+            var tmp:String = wordOrder[k];
+            wordOrder[k] = wordOrder[n];
+            wordOrder[n] = tmp;
+          }
+        }
+
+        displayWord = wordOrder.shift();
+        focusManager.setFocus(saybutton);
+      }
+
+      private function say():void {
+        playSound();
+      }
+
+      public function playSound():void {
+        trace('display word = [' + displayWord + ']');
+        stopSound();
+        channel = wordAudio[displayWord].play();
+      }
+
+      public function stopSound():void {
+        if (channel != null) channel.stop();
+      }
+
+    ]]>
+  </mx:Script>
+
+  <mx:String id="displayWord" />
+
+  <mx:Label text="{displayWord}" fontSize="96" fontWeight="bold" textAlign="center" />
+
+  <mx:HBox verticalAlign="middle" horizontalGap="15">
+    <mx:Button label="Say"  click="say()"  fontSize="12" id="saybutton" />
+    <mx:Button label="Next" click="next()" fontSize="12" />
+  </mx:HBox>
+
+  <mx:Label text="Audio courtesy of http://en.wiktionary.org/" textAlign="center" />
+</mx:Application>

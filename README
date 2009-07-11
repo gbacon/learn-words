@@ -1,0 +1,16 @@
+My young daughter is learning to read, and I wrote this simple
+Flash app as a practice aid.
+
+To get help with a word, click the Say button (or press S or the
+space bar).
+
+To go to the next word, click the Next button (or press N or Enter).
+
+The files words/*.mp3 are derivative works of pronunciations from
+Wiktionary (http://en.wiktionary.org/), which are dual-licensed
+under both the Creative Commons Attribution-ShareAlike 3.0 Unported
+License and the GNU Free Documentation License.
+
+See it live:
+
+  http://gbacon.blogspot.com/2009/07/just-for-you-madeline.html

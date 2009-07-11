@@ -1,0 +1,88 @@
+#! /usr/bin/perl
+
+use warnings;
+use strict;
+
+use HTML::Parser;
+use LWP::UserAgent;
+use URI::URL;
+
+my $URL = "http://en.wiktionary.org/wiki";
+
+my @words = qw(
+  a      all   an     and   are     as      at     be      but   by
+  can    do    each   for   from    had     have   he      his   how
+  I      if    in     is    it      not     of     on      one   or
+  said   she   that   the   their   there   they   this    to    use
+  was    we    were   what  when    which   with   words   you   your
+);
+
+$| = 1;
+
+my %audio;
+
+my $ua = LWP::UserAgent->new;
+
+use Data::Dumper;
+$Data::Dumper::Indent = 1;
+
+my $p = HTML::Parser->new(api_version => 3);
+
+WORD:
+foreach my $word (@words) {
+  my $audio;
+
+  my $ogg_href = sub {
+    my($tag,$attr,$p) = @_;
+
+    return unless $tag eq "a" &&
+                  ($attr->{class} || "") eq "internal" &&
+                  index(($attr->{href}||""), "En-us-${word}.ogg") > 0;
+
+    $audio = $attr->{href};
+    $p->eof;
+  };
+
+  $p->eof;
+  $p->handler(start => $ogg_href, "tagname,attr,self");
+
+  my $url = "$URL/$word";
+  print "$0: fetching $url...\n";
+
+  my $res = $ua->request(
+    HTTP::Request->new(GET => $url),
+    sub { $p->parse($_[0]) }
+  );
+
+  unless ($res->is_success) {
+    warn "$0: word '$word':\n" . $res->content;
+    next;
+  }
+
+  my $base = $res->base;
+
+  if (defined $audio) {
+    my $path = "words/$word";
+    $path .= ".$1" if $audio =~ /^.*\.(.+)$/;
+
+    print "$0: storing $path...\n";
+
+    my $abs = absurl($audio, $base);
+    my $res = $ua->request(HTTP::Request->new(GET => $abs), $path);
+
+    warn "$0: word '$word':\n" . $res->content
+      unless $res->is_success;
+   
+    next WORD;
+  }
+  else {
+    warn "$0: no audio for '$word'\n";
+  }
+}
+
+exit;
+
+sub absurl {
+  my($url,$base) = @_;
+  url($url,$base)->abs;
+}
